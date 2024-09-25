@@ -14,7 +14,7 @@ export const AddPaper = ()=>{
         stock:0
     }
 
-    const [papers,setPapers] = useAtom(PaperAtom);
+    const [papers, setPapers] = useAtom(PaperAtom);
     const [paper, setPaper] = useState(newPaper);
 
     const addPaper = () => { 
