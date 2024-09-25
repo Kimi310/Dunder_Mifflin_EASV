@@ -168,22 +168,23 @@ export class HttpClient<SecurityDataType = unknown> {
  * @baseUrl http://localhost:5000
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-  api = {
-    /**
-     * No description
-     *
-     * @tags Paper
-     * @name PaperCreatePaper
-     * @request POST:/api/Paper/CreatePaper
-     */
-    paperCreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
-      this.request<PaperDto, any>({
-        path: `/api/Paper/CreatePaper`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-  };
+  /**
+   * @name CreatePaper
+   * @request POST:/api/Paper/CreatePaper
+   * @description Create a new Paper
+   */
+  CreatePaper = (data: CreatePaperDto, params: RequestParams = {}) =>{
+    return this.request<PaperDto, any>({
+      path: `/api/Paper/CreatePaper`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  
+
+
 }

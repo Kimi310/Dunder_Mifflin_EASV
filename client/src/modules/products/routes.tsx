@@ -8,20 +8,8 @@ const ROUTES: RouteObject[] = [
 		path: '/',
 		element: <Navigation />,
 		children: [
-			{
-				index:true,
-				element:  <ProductsPage />
-			}
-		]
-	},
-	{
-		path: '/add-paper',
-		element: <Navigation />,
-		children: [
-			{
-				index:true,
-				element:  <AddPaper />
-			}
+			{ index: true, element: <ProductsPage /> },
+			{ path: "/add-paper", element: <AddPaper /> }
 		]
 	}
 ]
