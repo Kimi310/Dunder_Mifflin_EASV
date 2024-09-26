@@ -1,17 +1,42 @@
-name: API tests with .NET + TestContainers
+name: Run xUnit Tests
 
+# Trigger the workflow on every push or pull request
 on:
-  workflow_dispatch:
   push:
+    branches:
+      - main
+      - '**'
   pull_request:
+    branches:
+      - main
 
+# Define the jobs in the workflow
 jobs:
-  local_development:
-    runs-on: ubuntu-22.04
+  build:
+
+    # The operating system for the virtual environment
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up .NET Core
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8'
-      - uses: docker/setup-buildx-action@v3
-      - run: dotnet test
+          dotnet-version: '7.x' # Specify the version of .NET you're using (e.g., '6.x' or '7.x')
+
+      # Step 3: Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Step 4: Build the solution
+      - name: Build solution
+        run: dotnet build --no-restore --configuration Release
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal --configuration Release
+
