@@ -175,7 +175,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
    */
   CreatePaper = (data: CreatePaperDto, params: RequestParams = {}) =>{
     return this.request<PaperDto, any>({
-      path: `/api/Paper/CreatePaper`,
+      path: `/Paper/Create`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -185,6 +185,11 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
   }
 
   
-
+  GetProducts = () =>{
+    return this.request<PaperDto, any>({
+      path: `/products`,
+      method: "GET"
+    });
+  }
 
 }

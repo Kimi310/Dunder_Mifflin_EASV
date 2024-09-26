@@ -11,4 +11,9 @@ public class PaperRepository(DunderContext context) : IPaperRepository
         context.SaveChanges();
         return paper;
     }
+
+    public List<Paper> GetAllPapers()
+    {
+        return context.Papers.ToList();
+    }
 }
