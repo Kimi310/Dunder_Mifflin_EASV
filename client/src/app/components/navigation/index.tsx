@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom"
 export const Navigation = () => {
     return (
         <>
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-3 mt-5">
                 <Link to="/">Prodcus</Link>
                 <Link to="/">My Orders</Link>
                 <Link to="/add-paper">Add paper</Link>
