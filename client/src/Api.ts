@@ -167,6 +167,11 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0.0
  * @baseUrl http://localhost:5000
  */
+
+type GetProductsProps = {
+  search?: string;
+};
+
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
   /**
    * @name CreatePaper
@@ -184,11 +189,12 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     });
   }
 
-  
-  GetProducts = () =>{
+
+  GetProducts = (props?: GetProductsProps) =>{
     return this.request<PaperDto, any>({
       path: `/products`,
-      method: "GET"
+      method: "GET",
+      query: { search: props?.search },
     });
   }
 
