@@ -1,5 +1,5 @@
 import { Api, LoginCustomerDto, CreateCustomerDto, CustomerDto } from "@Api";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Signal } from "@preact/signals-react";
 
 const localUser = window.localStorage.getItem("user")
