@@ -19,4 +19,9 @@ public class PaperService(IPaperRepository paperRepository) : IPaperService
     {
         return paperRepository.GetAllPapers().ConvertAll(p => new PaperDto().FromEntity(p));
     }
+
+    public PaperDto GetPaperById(int paperId)
+    {
+        return new PaperDto().FromEntity(paperRepository.GetPaperById(paperId));
+    }
 }

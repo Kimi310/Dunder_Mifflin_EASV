@@ -18,4 +18,12 @@ public class PaperController(IPaperService paperService) : ControllerBase
         var paper = paperService.CreatePaper(data);
         return Ok(paper);
     }
+
+    [HttpGet]
+    [Route("Get/{id}")]
+    public ActionResult<PaperDto> GetPaper([FromRoute] int id)
+    {
+        var paper = paperService.GetPaperById(id);
+        return Ok(paper);
+    }
 }
