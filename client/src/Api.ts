@@ -167,23 +167,35 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0.0
  * @baseUrl http://localhost:5000
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-  api = {
-    /**
-     * No description
-     *
-     * @tags Paper
-     * @name PaperCreatePaper
-     * @request POST:/api/Paper/CreatePaper
-     */
-    paperCreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
-      this.request<PaperDto, any>({
-        path: `/api/Paper/CreatePaper`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-  };
+
+type GetProductsProps = {
+  search?: string;
+};
+
+export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
+  /**
+   * @name CreatePaper
+   * @request POST:/api/Paper/CreatePaper
+   * @description Create a new Paper
+   */
+  CreatePaper = (data: CreatePaperDto, params: RequestParams = {}) =>{
+    return this.request<PaperDto, any>({
+      path: `/Paper/Create`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+
+  GetProducts = (props?: GetProductsProps) =>{
+    return this.request<PaperDto, any>({
+      path: `/products`,
+      method: "GET",
+      query: { search: props?.search },
+    });
+  }
+
 }

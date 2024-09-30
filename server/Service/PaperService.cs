@@ -14,4 +14,9 @@ public class PaperService(IPaperRepository paperRepository) : IPaperService
         var newPaper = paperRepository.CreatePaper(paper);
         return new PaperDto().FromEntity(newPaper);
     }
+
+    public List<PaperDto> GetAllProducts()
+    {
+        return paperRepository.GetAllPapers().ConvertAll(p => new PaperDto().FromEntity(p));
+    }
 }
