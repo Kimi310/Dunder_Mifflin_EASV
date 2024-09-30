@@ -176,7 +176,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name PaperCreatePaper
      * @request POST:/Paper/Create
      */
-    CreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
+    paperCreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
         path: `/Paper/Create`,
         method: "POST",
@@ -193,10 +193,27 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name PaperGetPaper
      * @request GET:/Paper/Get/{id}
      */
-    GetPaperById: (id: number, params: RequestParams = {}) =>
+    paperGetPaper: (id: number, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
         path: `/Paper/Get/${id}`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperUpdateDiscontinued
+     * @request PUT:/Paper/Update/{id}/Discontinued
+     */
+    paperUpdateDiscontinued: (id: number, data: boolean, params: RequestParams = {}) =>
+      this.request<PaperDto, any>({
+        path: `/Paper/Update/${id}/Discontinued`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

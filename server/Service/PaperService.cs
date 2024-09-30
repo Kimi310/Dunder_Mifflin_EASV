@@ -1,4 +1,5 @@
 ﻿using DataAccess.Interfaces;
+using DataAccess.Models;
 using DataAccess.TransferModels.Request;
 using Service.Interfaces;
 using Service.TransferModels.Responses;
@@ -23,5 +24,15 @@ public class PaperService(IPaperRepository paperRepository) : IPaperService
     public PaperDto GetPaperById(int paperId)
     {
         return new PaperDto().FromEntity(paperRepository.GetPaperById(paperId));
+    }
+
+    public PaperDto UpdateDiscontinuedPaperDto(int id, bool discontinued)
+    {
+        var paper = new Paper()
+        {
+            Id = id,
+            Discontinued = discontinued
+        };
+        return new PaperDto().FromEntity(paperRepository.UpdatePaper(paper));
     }
 }

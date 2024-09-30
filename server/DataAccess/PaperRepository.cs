@@ -26,4 +26,17 @@ public class PaperRepository(DunderContext context) : IPaperRepository
         }
         return paper;
     }
+
+    public Paper UpdatePaper(Paper paper)
+    {
+        var existingPaper = context.Papers.FirstOrDefault(p => p.Id == paper.Id);
+    
+        if (existingPaper != null)
+        {
+            existingPaper.Discontinued = paper.Discontinued;
+            context.SaveChanges();
+        }
+
+        return existingPaper;
+    }
 }

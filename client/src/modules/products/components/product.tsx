@@ -9,7 +9,7 @@ export const ProductPage = () => {
     const [paper, setPaper] = useState<Paper>();
     const [restock, setRestock] = useState<number>(0);
     useEffect(() => {
-        new Api().paper.GetPaperById(Number.parseInt(params.id as string)).then((r: AxiosResponse<PaperDto>) => {
+        new Api().paper.paperGetPaper(Number.parseInt(params.id as string)).then((r: AxiosResponse<PaperDto>) => {
             const newPaper: Paper = {
             discontinued: r.data.discontinued,
             // @ts-ignore
@@ -36,14 +36,30 @@ export const ProductPage = () => {
                 <div className="flex flex-col justify-between items-center w-full mt-5">
                     <label className="text-6xl">Paper name: {paper?.name}</label>
                     <div className="flex flex-row justify-between items-center w-96 mt-10">
-                        <label className="text-3xl">Status: {paper?.discontinued ? 'Discontinued' : 'Available'}</label>
-                        <button className="btn">{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
+                        <label className="text-2xl">Status: {paper?.discontinued ? 'Discontinued' : 'Available'}</label>
+                        <button className="btn" onClick={()=>{
+                            // @ts-ignore
+                            new Api().paper.paperUpdateDiscontinued(paper?.id,!paper?.discontinued).then((r: AxiosResponse<PaperDto>)=>{
+                                const newPaperData: Paper = {
+                                    discontinued: r.data.discontinued,
+                                    // @ts-ignore
+                                    price: r.data.price,
+                                    // @ts-ignore
+                                    stock: r.data.stock,
+                                    // @ts-ignore
+                                    name: r.data.name,
+                                    id: r.data.id
+                                };
+                                setPaper({...newPaperData});
+                                console.log(paper);
+                            })
+                        }}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
                     </div>
                     <div className="flex flex-row items-center w-96 mt-10">
-                        <label className="text-3xl">Stock: {paper.stock}</label>
+                        <label className="text-2xl">Stock: {paper.stock}</label>
                     </div>
                     <div className="flex flex-row justify-between items-center w-96 mt-10">
-                        <label className="text-3xl">Restock</label>
+                        <label className="text-2xl">Restock</label>
                         <input type="number" value={restock} className="input input-bordered w-64" onChange={change => {
                             setRestock(Number.parseInt(change.target.value));
                         }}/>

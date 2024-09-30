@@ -9,4 +9,6 @@ public interface IPaperRepository
     public List<Paper> GetAllPapers();
     
     public Paper GetPaperById(int id);
+
+    public Paper UpdatePaper(Paper paper);
 }

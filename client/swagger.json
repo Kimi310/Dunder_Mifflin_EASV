@@ -75,6 +75,50 @@
         }
       }
     },
+    "/Paper/Update/{id}/Discontinued": {
+      "put": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_UpdateDiscontinued",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "discontinued",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Products": {
       "get": {
         "tags": [
