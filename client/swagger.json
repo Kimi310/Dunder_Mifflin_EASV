@@ -11,14 +11,14 @@
     }
   ],
   "paths": {
-    "/api/Paper/CreatePaper": {
+    "/Paper/Create": {
       "post": {
         "tags": [
           "Paper"
         ],
         "operationId": "Paper_CreatePaper",
         "requestBody": {
-          "x-name": "createPaperDto",
+          "x-name": "data",
           "content": {
             "application/json": {
               "schema": {
@@ -36,6 +36,71 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Paper/Get/{id}": {
+      "get": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_GetPaper",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_GetAllProducts",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaperDto"
+                  }
                 }
               }
             }

@@ -18,7 +18,7 @@ export const AddPaper = ()=>{
     const [paper, setPaper] = useState(newPaper);
 
     const addPaper = () => { 
-        new Api().CreatePaper({name:paper.name, price:paper.price, stock:paper.stock}).then((r: AxiosResponse<PaperDto>) =>{
+        new Api().paper.CreatePaper({name:paper.name, price:paper.price, stock:paper.stock}).then((r: AxiosResponse<PaperDto>) =>{
             toast.success("Paper has been added successfully!");
             const newPaperData: Paper = {
                 discontinued: r.data.discontinued,

@@ -31,7 +31,7 @@ export const ProductsPage = () => {
                                 <div className="text-lg font-semibold">{product.name}</div>
                                 <div className="text-lg font-semibold">${product.price}</div>
                             </div>
-                            <Link to={`/product/${product.id}`} className="btn btn-primary mt-2">View Item</Link>
+                            <Link to={`/paper/${product.id}`} className="btn btn-primary mt-2">View Item</Link>
                         </div>
                     </div>
                 ))}

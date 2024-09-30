@@ -19,7 +19,7 @@ export const useGetProducts = (props?: props) => {
     return useQuery({
         queryKey: ['products-details'],
         queryFn: async (): Promise<Prodcuts[]> => {
-            return API.GetProducts(props).then((res) => res.data) as Promise<Prodcuts[]>;
+            return API.products.productsGetAllProducts(props).then((res) => res.data) as Promise<Prodcuts[]>;
         },
         refetchInterval: 1000,
         refetchOnMount: true,
