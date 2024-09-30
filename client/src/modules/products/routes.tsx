@@ -11,7 +11,7 @@ const ROUTES: RouteObject[] = [
 		children: [
 			{ index: true, element: <ProductsPage /> },
 			{ path: "/add-paper", element: <AddPaper /> },
-			{ path: "/product/:id", element: <ProductPage /> }
+			{ path: "/paper/:id", element: <ProductPage /> }
 		]
 	}
 ]
