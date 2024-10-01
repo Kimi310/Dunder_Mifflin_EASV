@@ -20,4 +20,11 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         var thisCustomer = customerRepository.GetCustomerByEmail(customer);
         return new CustomerDto().FromEntity(thisCustomer);
     }
+
+    public CustomerDto UpdateCustomerById(UpdateCustomerDto updateCustomerDto)
+    {
+        var customer = updateCustomerDto.toCustomer();
+        var thisCustomer = customerRepository.UpdateCustomerById(customer);
+        return new CustomerDto().FromEntity(thisCustomer);
+    }
 }

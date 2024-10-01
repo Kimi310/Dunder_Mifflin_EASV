@@ -50,4 +50,25 @@ public class CustomerController(ICustomerService customerService): ControllerBas
             return BadRequest("Error with your request " + e.Message);
         }
     }
+
+
+    [HttpPatch]
+    [Route("update")]
+    public ActionResult<CustomerDto> UpdateCustomer([FromBody] UpdateCustomerDto data)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            var customer = customerService.UpdateCustomerById(data);
+            return Ok(customer);
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Error with your request " + e.Message);
+        }
+    }
 }

@@ -7,4 +7,5 @@ public interface ICustomerService
 {
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
     public CustomerDto GetCustomerByEmail(GetCustomerDto getCustomerDto);
+    public CustomerDto UpdateCustomerById(UpdateCustomerDto updateCustomerDto);
 }

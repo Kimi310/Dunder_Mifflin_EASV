@@ -1,4 +1,4 @@
-import { Api, LoginCustomerDto, CreateCustomerDto, CustomerDto } from "@Api";
+import { Api, LoginCustomerDto, CreateCustomerDto, UpdateCustomerDto, CustomerDto } from "@Api";
 import { useEffect, useState } from "react";
 import { Signal } from "@preact/signals-react";
 
@@ -19,6 +19,8 @@ export const useSignup = (data: CreateCustomerDto) => {
         window.localStorage.setItem("user", JSON.stringify(res.data))
         userSignal.value = res.data
         loggedIn.value = true
+
+        window.location.href = '/';
 
         return res.data
     })
@@ -41,6 +43,23 @@ export const useLogin = (data: LoginCustomerDto) => {
         window.location.href = '/';
     })
 };
+
+
+export const useUpdaueCustomer = (data: UpdateCustomerDto) => {
+    const API = new Api();
+
+    return API.UpdateCustomer(data).then((res) => {
+        if (res.data || loggedIn.value === true) {
+            window.localStorage.removeItem("user")
+            userSignal.value = undefined
+        }
+        
+        window.localStorage.setItem("user", JSON.stringify(res.data))
+        userSignal.value = res.data
+        loggedIn.value = true
+    })
+};
+
 
 export const useLogout = () => {
     window.localStorage.removeItem("user")

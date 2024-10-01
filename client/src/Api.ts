@@ -36,6 +36,14 @@ export interface CustomerDto {
   email?: string
 }
 
+export interface UpdateCustomerDto {
+  id: number
+  name?: string | null,
+  address?: string |  null,
+  phone?: string |  null,
+  email?: string |  null
+}
+
 export interface CreateCustomerDto {
   email: string;
   name: string;
@@ -231,6 +239,17 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     return this.request<CustomerDto, any>({
       path: `/customer/login`,
       method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  UpdateCustomer = (data: UpdateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/update`,
+      method: "PATCH",
       body: data,
       type: ContentType.Json,
       format: "json",
