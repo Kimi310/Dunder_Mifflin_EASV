@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using System.Net;
 using API;
 using DataAccess;
 using DataAccess.Models;
@@ -31,14 +32,17 @@ public class PaperApiTests : WebApplicationFactory<Program>
             Price = 25
         };
         
-        var act = await CreateClient().PostAsJsonAsync("api/Paper/CreatePaper", createPaperDto);
+        // Create Client
+        var client = CreateClient();
         
+        // Sim a request and get response
+        var response = await client.PostAsJsonAsync("/Paper/Create", createPaperDto);
         
-        var returnedPaper = JsonSerializer.Deserialize<Paper>(await act.Content.ReadAsStringAsync(),
-            new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true
-        })?? throw new InvalidOperationException();;
+        // Make sure response code is OK ( 200 )
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        
+        // Check the content
+        var returnedPaper = await response.Content.ReadFromJsonAsync<PaperDto>();
         
         var paperInDb = _pgCtxSetup.DbContextInstance.Papers.First();
         Assert.Equal(createPaperDto.Name, returnedPaper.Name);
