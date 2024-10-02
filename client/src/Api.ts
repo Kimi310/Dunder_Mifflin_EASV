@@ -28,6 +28,32 @@ export interface CreatePaperDto {
   price?: number;
 }
 
+export interface CustomerDto {
+  id?: number
+  name?: string,
+  address?: string,
+  phone?: string,
+  email?: string
+}
+
+export interface UpdateCustomerDto {
+  id: number
+  name?: string | null,
+  address?: string |  null,
+  phone?: string |  null,
+  email?: string |  null
+}
+
+export interface CreateCustomerDto {
+  email: string;
+  name: string;
+}
+
+export interface LoginCustomerDto {
+  email: string;
+}
+
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -195,6 +221,39 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
       path: `/products`,
       method: "GET",
       query: { search: props?.search },
+    });
+  }
+
+  SignUp = (data: CreateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/signup`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  Login = (data: LoginCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/login`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  UpdateCustomer = (data: UpdateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/update`,
+      method: "PATCH",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
     });
   }
 

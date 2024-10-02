@@ -14,7 +14,6 @@ type props = {
 }
 
 export const useGetProducts = (props?: props) => {
-    console.log(props);
     const API = new Api();
     return useQuery({
         queryKey: ['products-details'],

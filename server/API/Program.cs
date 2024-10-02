@@ -29,8 +29,10 @@ public class Program
                               ?? appOptions.DbConnectionString);
             options.EnableSensitiveDataLogging();
         });
+        builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
         builder.Services.AddScoped<IPaperRepository, PaperRepository>();
         builder.Services.AddScoped<IPaperService, PaperService>();
+        builder.Services.AddScoped<ICustomerService, CustomerService>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();
 
