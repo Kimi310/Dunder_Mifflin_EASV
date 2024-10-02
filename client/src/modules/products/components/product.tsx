@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {Api, PaperDto} from "@Api.ts";
 import {AxiosResponse} from "axios";
 import {Paper} from "@assets/models/Paper.ts";
+import {toast} from "react-hot-toast";
 
 export const ProductPage = () => {
     const params= useParams();
@@ -51,7 +52,7 @@ export const ProductPage = () => {
                                     id: r.data.id
                                 };
                                 setPaper({...newPaperData});
-                                console.log(paper);
+                                newPaperData.discontinued ? toast.success("Paper has been discontinued successfully!") : toast.success("Paper has been made available successfully!");
                             })
                         }}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
                     </div>
