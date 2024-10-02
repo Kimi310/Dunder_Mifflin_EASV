@@ -217,6 +217,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperUpdateRestock
+     * @request PUT:/Paper/Update/{id}/Restock
+     */
+    paperUpdateRestock: (id: number, data: number, params: RequestParams = {}) =>
+      this.request<PaperDto, any>({
+        path: `/Paper/Update/${id}/Restock`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
   };
   products = {
     /**

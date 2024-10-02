@@ -31,7 +31,7 @@ export const ProductPage = () => {
         )
     }
 
-    private function updateDiscontinued() {
+    function updateDiscontinued() {
             // @ts-ignore
             new Api().paper.paperUpdateDiscontinued(paper?.id,!paper?.discontinued).then((r: AxiosResponse<PaperDto>)=>{
                 const newPaperData: Paper = {
@@ -48,7 +48,25 @@ export const ProductPage = () => {
                 newPaperData.discontinued ? toast.success("Paper has been discontinued successfully!") : toast.success("Paper has been made available successfully!");
             })
     }
-    
+
+    function updateRestock(){
+        // @ts-ignore
+        new Api().paper.paperUpdateRestock(paper?.id,restock).then((r: AxiosResponse<PaperDto>)=>{
+            const newPaperData: Paper = {
+                discontinued: r.data.discontinued,
+                // @ts-ignore
+                price: r.data.price,
+                // @ts-ignore
+                stock: r.data.stock,
+                // @ts-ignore
+                name: r.data.name,
+                id: r.data.id
+            };
+            setPaper({...newPaperData});
+            toast.success("Paper has been restocked successfully!");
+        })
+    }
+
     return (
         <div className="flex justify-center">
             <div className="flex flex-col justify-center items-center pt-5">
@@ -68,7 +86,7 @@ export const ProductPage = () => {
                         }}/>
                     </div>
                     <div className="flex flex-row justify-end items-center w-96 mt-5">
-                        <button className="btn">Restock</button>
+                        <button className="btn" onClick={()=>updateRestock()}>Restock</button>
                     </div>
                 </div>
             </div>

@@ -119,6 +119,51 @@
         }
       }
     },
+    "/Paper/Update/{id}/Restock": {
+      "put": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_UpdateRestock",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "restock",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Products": {
       "get": {
         "tags": [
