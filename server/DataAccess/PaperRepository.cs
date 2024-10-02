@@ -27,7 +27,7 @@ public class PaperRepository(DunderContext context) : IPaperRepository
         return paper;
     }
 
-    public Paper UpdatePaper(Paper paper)
+    public Paper UpdatePaperDiscontinued(Paper paper)
     {
         var existingPaper = context.Papers.FirstOrDefault(p => p.Id == paper.Id);
     
@@ -35,8 +35,21 @@ public class PaperRepository(DunderContext context) : IPaperRepository
         {
             existingPaper.Discontinued = paper.Discontinued;
             context.SaveChanges();
+            return existingPaper;
         }
+        throw new NullReferenceException();
+    }
 
-        return existingPaper;
+    public Paper UpdatePaperRestock(Paper paper)
+    {
+        var existingPaper = context.Papers.FirstOrDefault(p => p.Id == paper.Id);
+
+        if (existingPaper != null)
+        {
+            existingPaper.Stock = paper.Stock;
+            context.SaveChanges();
+            return existingPaper;
+        }
+        throw new NullReferenceException();
     }
 }

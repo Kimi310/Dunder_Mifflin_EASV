@@ -35,4 +35,12 @@ public class PaperController(IPaperService paperService) : ControllerBase
         var paper = paperService.UpdateDiscontinuedPaperDto(id, discontinued);
         return Ok(paper);
     }
+
+    [HttpPut]
+    [Route("Update/{id}/Restock")]
+    public ActionResult<PaperDto> UpdateRestock([FromBody] int restock, [FromRoute] int id)
+    {
+        var paper = paperService.UpdateRestockPaperDto(id, restock);
+        return Ok(paper);
+    }
 }

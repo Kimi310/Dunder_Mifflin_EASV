@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Models;
 using DataAccess.TransferModels.Request;
 using Service.Interfaces;
@@ -33,6 +34,13 @@ public class PaperService(IPaperRepository paperRepository) : IPaperService
             Id = id,
             Discontinued = discontinued
         };
-        return new PaperDto().FromEntity(paperRepository.UpdatePaper(paper));
+        return new PaperDto().FromEntity(paperRepository.UpdatePaperDiscontinued(paper));
+    }
+
+    public PaperDto UpdateRestockPaperDto(int id, int restock)
+    {
+        var paper = paperRepository.GetPaperById(id);
+        paper.Stock += restock;
+        return new PaperDto().FromEntity(paperRepository.UpdatePaperRestock(paper));
     }
 }

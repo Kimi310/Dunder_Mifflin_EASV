@@ -30,6 +30,24 @@ export const ProductPage = () => {
             <div className="text-6xl">Loading...</div>
         )
     }
+
+    private function updateDiscontinued() {
+            // @ts-ignore
+            new Api().paper.paperUpdateDiscontinued(paper?.id,!paper?.discontinued).then((r: AxiosResponse<PaperDto>)=>{
+                const newPaperData: Paper = {
+                    discontinued: r.data.discontinued,
+                    // @ts-ignore
+                    price: r.data.price,
+                    // @ts-ignore
+                    stock: r.data.stock,
+                    // @ts-ignore
+                    name: r.data.name,
+                    id: r.data.id
+                };
+                setPaper({...newPaperData});
+                newPaperData.discontinued ? toast.success("Paper has been discontinued successfully!") : toast.success("Paper has been made available successfully!");
+            })
+    }
     
     return (
         <div className="flex justify-center">
@@ -38,23 +56,7 @@ export const ProductPage = () => {
                     <label className="text-6xl">Paper name: {paper?.name}</label>
                     <div className="flex flex-row justify-between items-center w-96 mt-10">
                         <label className="text-2xl">Status: {paper?.discontinued ? 'Discontinued' : 'Available'}</label>
-                        <button className="btn" onClick={()=>{
-                            // @ts-ignore
-                            new Api().paper.paperUpdateDiscontinued(paper?.id,!paper?.discontinued).then((r: AxiosResponse<PaperDto>)=>{
-                                const newPaperData: Paper = {
-                                    discontinued: r.data.discontinued,
-                                    // @ts-ignore
-                                    price: r.data.price,
-                                    // @ts-ignore
-                                    stock: r.data.stock,
-                                    // @ts-ignore
-                                    name: r.data.name,
-                                    id: r.data.id
-                                };
-                                setPaper({...newPaperData});
-                                newPaperData.discontinued ? toast.success("Paper has been discontinued successfully!") : toast.success("Paper has been made available successfully!");
-                            })
-                        }}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
+                        <button className="btn" onClick={()=>updateDiscontinued()}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
                     </div>
                     <div className="flex flex-row items-center w-96 mt-10">
                         <label className="text-2xl">Stock: {paper.stock}</label>

@@ -13,4 +13,6 @@ public interface IPaperService
     public PaperDto GetPaperById(int paperId);
 
     public PaperDto UpdateDiscontinuedPaperDto(int id, bool discontinued);
+
+    public PaperDto UpdateRestockPaperDto(int id, int restock);
 }

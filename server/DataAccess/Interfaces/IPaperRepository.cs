@@ -10,5 +10,8 @@ public interface IPaperRepository
     
     public Paper GetPaperById(int id);
 
-    public Paper UpdatePaper(Paper paper);
+    public Paper UpdatePaperDiscontinued(Paper paper);
+    
+    public Paper UpdatePaperRestock(Paper paper);
+
 }
