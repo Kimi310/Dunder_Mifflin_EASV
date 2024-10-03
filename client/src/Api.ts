@@ -28,6 +28,32 @@ export interface CreatePaperDto {
   price?: number;
 }
 
+export interface CustomerDto {
+  id?: number
+  name?: string,
+  address?: string,
+  phone?: string,
+  email?: string
+}
+
+export interface UpdateCustomerDto {
+  id: number
+  name?: string | null,
+  address?: string |  null,
+  phone?: string |  null,
+  email?: string |  null
+}
+
+export interface CreateCustomerDto {
+  email: string;
+  name: string;
+}
+
+export interface LoginCustomerDto {
+  email: string;
+}
+
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -218,43 +244,46 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
 
-    /**
-     * No description
-     *
-     * @tags Paper
-     * @name PaperUpdateRestock
-     * @request PUT:/Paper/Update/{id}/Restock
-     */
-    paperUpdateRestock: (id: number, data: number, params: RequestParams = {}) =>
-      this.request<PaperDto, any>({
-        path: `/Paper/Update/${id}/Restock`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-  };
-  products = {
-    /**
-     * No description
-     *
-     * @tags Products
-     * @name ProductsGetAllProducts
-     * @request GET:/Products
-     */
-    productsGetAllProducts: (
-      query?: {
-        search?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<PaperDto[], any>({
-        path: `/Products`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-  };
+
+  GetProducts = (props?: GetProductsProps) =>{
+    return this.request<PaperDto, any>({
+      path: `/products`,
+      method: "GET",
+      query: { search: props?.search },
+    });
+  }
+
+  SignUp = (data: CreateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/signup`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  Login = (data: LoginCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/login`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  UpdateCustomer = (data: UpdateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/update`,
+      method: "PATCH",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
 }

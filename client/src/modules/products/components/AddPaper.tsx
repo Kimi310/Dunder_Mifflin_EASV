@@ -7,7 +7,7 @@ import { Api, PaperDto } from "@Api.ts";
 import { AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 
-export const AddPaper = ()=>{
+export const AddPaper = ()=>{  
     const newPaper : Paper ={
         name: "",
         price: 0,
