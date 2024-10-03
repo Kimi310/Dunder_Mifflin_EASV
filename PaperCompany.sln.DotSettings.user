@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8e69a413_002D072b_002D4d51_002Db3a0_002D834d5aa67920/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreatePaper_Successfully_Returns_Paper" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::44D34599-B2E2-4EFB-A737-FE387F5C3FE5::net8.0::PaperServiceTests.MoqPaperServiceTests.CreatePaper_Successfully_Returns_Paper&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::8F05F9B5-E8FD-47F7-B02F-2F0C6D906383::net8.0::ApiIntegrationTest.PaperApiTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -9,12 +9,16 @@ export type Prodcuts = {
     price: number;
 }
 
-export const useGetProducts = () => {
+type props = {
+    search?: string;
+}
+
+export const useGetProducts = (props?: props) => {
     const API = new Api();
     return useQuery({
         queryKey: ['products-details'],
         queryFn: async (): Promise<Prodcuts[]> => {
-            return API.GetProducts().then((res) => res.data) as Promise<Prodcuts[]>;
+            return API.GetProducts(props).then((res) => res.data) as Promise<Prodcuts[]>;
         },
         refetchInterval: 1000,
         refetchOnMount: true,

@@ -28,6 +28,32 @@ export interface CreatePaperDto {
   price?: number;
 }
 
+export interface CustomerDto {
+  id?: number
+  name?: string,
+  address?: string,
+  phone?: string,
+  email?: string
+}
+
+export interface UpdateCustomerDto {
+  id: number
+  name?: string | null,
+  address?: string |  null,
+  phone?: string |  null,
+  email?: string |  null
+}
+
+export interface CreateCustomerDto {
+  email: string;
+  name: string;
+}
+
+export interface LoginCustomerDto {
+  email: string;
+}
+
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -167,6 +193,11 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0.0
  * @baseUrl http://localhost:5000
  */
+
+type GetProductsProps = {
+  search?: string;
+};
+
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
   /**
    * @name CreatePaper
@@ -184,11 +215,45 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     });
   }
 
-  
-  GetProducts = () =>{
+
+  GetProducts = (props?: GetProductsProps) =>{
     return this.request<PaperDto, any>({
       path: `/products`,
-      method: "GET"
+      method: "GET",
+      query: { search: props?.search },
+    });
+  }
+
+  SignUp = (data: CreateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/signup`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  Login = (data: LoginCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/login`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  }
+
+  UpdateCustomer = (data: UpdateCustomerDto, params: RequestParams = {}) =>{
+    return this.request<CustomerDto, any>({
+      path: `/customer/update`,
+      method: "PATCH",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
     });
   }
 
