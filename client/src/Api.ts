@@ -193,27 +193,56 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0.0
  * @baseUrl http://localhost:5000
  */
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  paper = {
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperCreatePaper
+     * @request POST:/Paper/Create
+     */
+    paperCreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
+      this.request<PaperDto, any>({
+        path: `/Paper/Create`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
 
-type GetProductsProps = {
-  search?: string;
-};
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperGetPaper
+     * @request GET:/Paper/Get/{id}
+     */
+    paperGetPaper: (id: number, params: RequestParams = {}) =>
+      this.request<PaperDto, any>({
+        path: `/Paper/Get/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
 
-export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
-  /**
-   * @name CreatePaper
-   * @request POST:/api/Paper/CreatePaper
-   * @description Create a new Paper
-   */
-  CreatePaper = (data: CreatePaperDto, params: RequestParams = {}) =>{
-    return this.request<PaperDto, any>({
-      path: `/Paper/Create`,
-      method: "POST",
-      body: data,
-      type: ContentType.Json,
-      format: "json",
-      ...params,
-    });
-  }
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperUpdateDiscontinued
+     * @request PUT:/Paper/Update/{id}/Discontinued
+     */
+    paperUpdateDiscontinued: (id: number, data: boolean, params: RequestParams = {}) =>
+      this.request<PaperDto, any>({
+        path: `/Paper/Update/${id}/Discontinued`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
 
 
   GetProducts = (props?: GetProductsProps) =>{

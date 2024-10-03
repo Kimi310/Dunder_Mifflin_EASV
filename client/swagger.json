@@ -11,14 +11,14 @@
     }
   ],
   "paths": {
-    "/api/Paper/CreatePaper": {
+    "/Paper/Create": {
       "post": {
         "tags": [
           "Paper"
         ],
         "operationId": "Paper_CreatePaper",
         "requestBody": {
-          "x-name": "createPaperDto",
+          "x-name": "data",
           "content": {
             "application/json": {
               "schema": {
@@ -36,6 +36,160 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Paper/Get/{id}": {
+      "get": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_GetPaper",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Paper/Update/{id}/Discontinued": {
+      "put": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_UpdateDiscontinued",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "discontinued",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Paper/Update/{id}/Restock": {
+      "put": {
+        "tags": [
+          "Paper"
+        ],
+        "operationId": "Paper_UpdateRestock",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "restock",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaperDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_GetAllProducts",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaperDto"
+                  }
                 }
               }
             }
