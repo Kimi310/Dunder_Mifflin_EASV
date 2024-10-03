@@ -24,22 +24,22 @@ export const User = () => {
                 <div className="flex flex-col gap-2 text-lg">
                     <div className="flex flex-col gap-2">
                         <div>Name:</div>
-                        <input type="text" placeholder={user?.name} value={data.name || ''} onChange={(e) => setData({ ...data, name: e.target.value || null })} className="p-2 rounded" />
+                        <input type="text" placeholder={user?.name} value={data.name || ''} onChange={(e) => setData({ ...data, name: e.target.value || undefined })} className="p-2 rounded" />
                     </div>
 
                     <div className="flex flex-col gap-2">
                         <div>Email:</div>
-                        <input type="text" placeholder={user?.email} content={user?.email} value={data.email || ''} onChange={(e) => setData({ ...data, email: e.target.value || null })} className="p-2 rounded" />
+                        <input type="text" placeholder={user?.email} content={user?.email} value={data.email || ''} onChange={(e) => setData({ ...data, email: e.target.value || undefined })} className="p-2 rounded" />
                     </div>
 
                     <div className="flex flex-col gap-2">
                         <div>Phone:</div>
-                        <input type="text" placeholder={user?.phone} value={data.phone || ''} onChange={(e) => setData({ ...data, phone: e.target.value || null })} className="p-2 rounded" />
+                        <input type="text" placeholder={user?.phone} value={data.phone || ''} onChange={(e) => setData({ ...data, phone: e.target.value || undefined })} className="p-2 rounded" />
                     </div>
 
                     <div className="flex flex-col gap-2">
                         <div>Address:</div>
-                        <input type="text" placeholder={user?.address} value={data.address || ''} onChange={(e) => setData({ ...data, address: e.target.value || null })} className="p-2 rounded" />
+                        <input type="text" placeholder={user?.address} value={data.address || ''} onChange={(e) => setData({ ...data, address: e.target.value || undefined })} className="p-2 rounded" />
                     </div>
                 </div>
 
