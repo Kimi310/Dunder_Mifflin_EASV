@@ -70,6 +70,16 @@ export interface CreatePaperDto {
   price?: number;
 }
 
+export interface PropertyDto {
+  /** @format int32 */
+  id?: number;
+  propertyName?: string;
+}
+
+export interface CreatePropertyDto {
+  propertyName?: string;
+}
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -347,6 +357,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/Products`,
         method: "GET",
         query: query,
+        format: "json",
+        ...params,
+      }),
+  };
+  property = {
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyCreateProperty
+     * @request POST:/Property/Create
+     */
+    propertyCreateProperty: (data: CreatePropertyDto, params: RequestParams = {}) =>
+      this.request<PropertyDto, any>({
+        path: `/Property/Create`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyGetAllProperties
+     * @request GET:/Property/Get
+     */
+    propertyGetAllProperties: (params: RequestParams = {}) =>
+      this.request<PropertyDto[], any>({
+        path: `/Property/Get`,
+        method: "GET",
         format: "json",
         ...params,
       }),

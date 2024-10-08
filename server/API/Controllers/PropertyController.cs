@@ -11,7 +11,7 @@ public class PropertyController(IPropertyService propertyService) : ControllerBa
 {
     [HttpPost]
     [Route("Create")]
-    public ActionResult<PropertyDto> CreatePaper([FromBody] CreatePropertyDto data)
+    public ActionResult<PropertyDto> CreateProperty([FromBody] CreatePropertyDto data)
     {
         var property = propertyService.CreateProperty(data);
         return Ok(property);
@@ -19,7 +19,7 @@ public class PropertyController(IPropertyService propertyService) : ControllerBa
     
     [HttpGet]
     [Route("Get")]
-    public ActionResult<List<PropertyDto>> GetAllProducts()
+    public ActionResult<List<PropertyDto>> GetAllProperties()
     {
         var properties = propertyService.GetProperties();
         return Ok(properties.ToList());

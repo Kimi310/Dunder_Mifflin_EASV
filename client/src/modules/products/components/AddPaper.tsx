@@ -35,8 +35,6 @@ export const AddPaper = ()=>{
 
             setPapers(updatedPapers);
             setPaper(newPaperData);
-
-            console.log(updatedPapers);
         });
     }
 
@@ -64,7 +62,7 @@ export const AddPaper = ()=>{
                 </div>
             </div>
             <div className="flex flex-row justify-end items-center w-full mt-5">
-                <button onClick={()=> addPaper()} className={"btn"}>Accept</button>
+                <button onClick={()=> addPaper()} className={"btn btn-primary"}>Accept</button>
             </div>
         </div>
     </div>

@@ -292,6 +292,61 @@
           }
         }
       }
+    },
+    "/Property/Create": {
+      "post": {
+        "tags": [
+          "Property"
+        ],
+        "operationId": "Property_CreateProperty",
+        "requestBody": {
+          "x-name": "data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePropertyDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Property/Get": {
+      "get": {
+        "tags": [
+          "Property"
+        ],
+        "operationId": "Property_GetAllProperties",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -418,6 +473,28 @@
           "price": {
             "type": "number",
             "format": "double"
+          }
+        }
+      },
+      "PropertyDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "propertyName": {
+            "type": "string"
+          }
+        }
+      },
+      "CreatePropertyDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "propertyName": {
+            "type": "string"
           }
         }
       }
