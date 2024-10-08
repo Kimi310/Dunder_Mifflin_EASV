@@ -7,10 +7,10 @@ export const Navigation = () => {
     return (
         <>
             <div className="flex items-center justify-center gap-3 mt-5">
-                <Link to="/">Prodcus</Link>
+                <Link to="/">Papers</Link>
                 <Link to="/">My Orders</Link>
                 <Link to="/add-paper">Add paper</Link>
-
+                <Link to={"/properties"}>Properties</Link>
                 {isLoggedIn ? <Link to="/user" className="font-bold">{user?.name}</Link> : <Link to="/login">Login</Link>}
             </div>
             <Outlet />
