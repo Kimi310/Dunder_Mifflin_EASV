@@ -3,30 +3,30 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
 namespace API.Controllers;
-
-[ApiController]
+    [ApiController]
 [Route("[controller]")]
-
-public class OrdersController (IOrderService orderService): ControllerBase
-{
-    /*[HttpPost]
-    public async Task<IActionResult> CreateOrder(OrderDto orderDto)
+    public class OrdersController : ControllerBase
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        private readonly IOrderService _orderService;
 
-        var order = await orderService.CreateOrder(orderDto);
-        return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
-    }
-   [HttpGet("{id}")]
-    public async Task<IActionResult> GetOrderById(int id)
-    {
-        var order = await orderService.GetOrderById(id);
-
-        if (order == null)
+        public OrdersController(IOrderService orderService)
         {
-            return NotFound();
+            _orderService = orderService;
         }
 
-        return Ok(order);
-    }*/
-}
+        [HttpPost]
+        public async Task<IActionResult> PlaceOrder([FromBody] OrderDto orderDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _orderService.PlaceOrder(orderDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+    }
