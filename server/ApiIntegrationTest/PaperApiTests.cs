@@ -35,13 +35,10 @@ public class PaperApiTests : WebApplicationFactory<Program>
         // Create Client
         var client = CreateClient();
         
-        // Sim a request and get response
         var response = await client.PostAsJsonAsync("/Paper/Create", createPaperDto);
         
-        // Make sure response code is OK ( 200 )
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         
-        // Check the content
         var returnedPaper = await response.Content.ReadFromJsonAsync<PaperDto>();
         
         var paperInDb = _pgCtxSetup.DbContextInstance.Papers.First();
