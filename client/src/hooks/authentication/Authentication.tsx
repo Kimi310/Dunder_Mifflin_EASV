@@ -1,4 +1,4 @@
-import { Api, LoginCustomerDto, CreateCustomerDto, UpdateCustomerDto, CustomerDto } from "@Api";
+import { Api, GetCustomerDto, CreateCustomerDto, UpdateCustomerDto, CustomerDto } from "@Api";
 import { useEffect, useState } from "react";
 import { Signal } from "@preact/signals-react";
 
@@ -9,7 +9,7 @@ const loggedIn = new Signal<boolean>(!!localUser);
 export const useSignup = (data: CreateCustomerDto) => {
     const API = new Api();
 
-    return API.SignUp(data).then((res) => {
+    return API.customer.customerCreateCustomer(data).then((res) => {
         if (res.data || loggedIn.value === true) {
             window.localStorage.removeItem("user")
             loggedIn.value = false
@@ -26,10 +26,10 @@ export const useSignup = (data: CreateCustomerDto) => {
     })
 };
 
-export const useLogin = (data: LoginCustomerDto) => {
+export const useLogin = (data: GetCustomerDto) => {
     const API = new Api();
 
-    return API.Login(data).then((res) => {
+    return API.customer.customerLoginCustomer(data).then((res) => {
         if (res.data || loggedIn.value === true) {
             window.localStorage.removeItem("user")
             loggedIn.value = false
@@ -48,7 +48,7 @@ export const useLogin = (data: LoginCustomerDto) => {
 export const useUpdaueCustomer = (data: UpdateCustomerDto) => {
     const API = new Api();
 
-    return API.UpdateCustomer(data).then((res) => {
+    return API.customer.customerUpdateCustomer(data).then((res) => {
         if (res.data || loggedIn.value === true) {
             window.localStorage.removeItem("user")
             userSignal.value = undefined
