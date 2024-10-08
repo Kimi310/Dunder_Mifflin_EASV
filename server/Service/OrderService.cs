@@ -1,30 +1,47 @@
 using DataAccess.Models;
-
-namespace Service;
-using DataAccess.Interfaces;
-using DataAccess.TransferModels.Request;
 using Service.Interfaces;
+using DataAccess.TransferModels.Request;
 using Service.TransferModels.Responses;
-
-public class OrderService
+namespace Service;
+public class OrderService : IOrderService
 {
-    public async Task<ServiceResult> PlaceOrder(OrderDto orderDto)
+    private readonly ApplicationDbContext _context;
+
+    public OrderService(ApplicationDbContext context)
     {
+        _context = context;
+    }
+    public async Task<Order> CreateOrder(OrderDto orderDto)
+    {
+        // Sprawdzenie, czy klient istnieje
+        var customer = await _context.Customers.FindAsync(orderDto.CustomerId);
+        if (customer == null)
+        {
+            throw new ArgumentException("Customer not found");
+        }
+
+        // Tworzenie nowego zamówienia
         var order = new Order
         {
-            OrderDate = orderDto.OrderDate,
-            TotalAmount = CalculateTotalAmount(orderDto.OrderEntries),
-            OrderEntries = orderDto.OrderEntries.Select(oe => new OrderEntry
+            OrderDate = DateTime.Now,
+            CustomerId = orderDto.CustomerId,
+            Status = "Pending",
+            OrderEntries = orderDto.OrderEntries.Select(entry => new OrderEntry
             {
-                ProductId = oe.ProductId,
-                Quantity = oe.Quantity
+                ProductId = entry.ProductId,
+                Quantity = entry.Quantity
             }).ToList()
         };
 
-        _context.Orders.Add(order);
-         _context.SaveChangesAsync();
+        // Obliczanie całkowitej kwoty zamówienia
+        order.TotalAmount = order.OrderEntries.Sum(e => e.Quantity * _context.Paper.Find(e.ProductId).Price);
 
-        return new ServiceResult { Success = true };
+        // Dodanie zamówienia do kontekstu
+        _context.Orders.Add(order);
+        await _context.SaveChangesAsync();
+
+        return order;
     }
 
+  
 }
