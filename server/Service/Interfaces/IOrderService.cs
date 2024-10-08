@@ -1,6 +1,7 @@
 using DataAccess.Interfaces;
 using DataAccess.Models;
 using DataAccess.TransferModels.Request;
+using Service.TransferModels.Requests;
 
 namespace Service.Interfaces;
 
@@ -8,6 +9,7 @@ public interface IOrderService
 {
     Order CreateOrder(OrderDto orderDto);
     Order GetOrderById(int orderId);
+
 }
 
 public class OrderService : IOrderService
@@ -33,9 +35,9 @@ public class OrderService : IOrderService
             }).ToList()
         };
 
-        // Obliczanie całkowitej kwoty
+        
         order.TotalAmount = order.OrderEntries
-            .Sum(e => e.Quantity * 10); // Przykładowa cena, zmień na odpowiednią logikę
+            .Sum(e => e.Quantity * 10); 
 
         return _orderRepository.CreateOrder(order);
     }
@@ -44,4 +46,5 @@ public class OrderService : IOrderService
     {
         return _orderRepository.GetOrderById(orderId);
     }
+    
 }

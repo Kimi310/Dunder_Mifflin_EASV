@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Service;
 using Service.Interfaces;
+using OrderService = Service.OrderService;
 
 namespace API;
 
@@ -30,6 +31,7 @@ public class Program
             options.EnableSensitiveDataLogging();
         });
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
         builder.Services.AddScoped<IPaperRepository, PaperRepository>();
         builder.Services.AddScoped<IPaperService, PaperService>();

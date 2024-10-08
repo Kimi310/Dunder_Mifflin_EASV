@@ -1,47 +1,73 @@
+using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Models;
 using Service.Interfaces;
 using DataAccess.TransferModels.Request;
+using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
 namespace Service;
+
 public class OrderService : IOrderService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IOrderRepository _orderRepository;
+    private readonly ICustomerRepository _customerRepository;
+    private readonly IPaperRepository _paperRepository;
 
-    public OrderService(ApplicationDbContext context)
+    public OrderService(IOrderRepository orderRepository, ICustomerRepository customerRepository, IPaperRepository paperRepository)
     {
-        _context = context;
+        _orderRepository = orderRepository;
+        _customerRepository = customerRepository;
+        _paperRepository = paperRepository;
     }
-    public async Task<Order> CreateOrder(OrderDto orderDto)
+
+    public Order CreateOrder(OrderDto orderDto)
     {
-        // Sprawdzenie, czy klient istnieje
-        var customer = await _context.Customers.FindAsync(orderDto.CustomerId);
+        var customer = _customerRepository.GetCustomerById(OrderDto.CustomerId);
         if (customer == null)
         {
-            throw new ArgumentException("Customer not found");
+            throw new Exception("Customer not found");
         }
 
-        // Tworzenie nowego zamówienia
+        
         var order = new Order
         {
+            CustomerId = OrderDto.CustomerId,
             OrderDate = DateTime.Now,
-            CustomerId = orderDto.CustomerId,
             Status = "Pending",
-            OrderEntries = orderDto.OrderEntries.Select(entry => new OrderEntry
+            OrderEntries = OrderDto.OrderEntries.Select(entryDto => 
             {
-                ProductId = entry.ProductId,
-                Quantity = entry.Quantity
+                var product = _paperRepository.GetPaperById(entryDto.ProductId.Value);
+                if (product == null)
+                {
+                    throw new Exception("Product not found");
+                }
+                return new OrderEntry
+                {
+                    ProductId = entryDto.ProductId,
+                    Quantity = entryDto.Quantity,
+                    Price = product.Price
+                };
             }).ToList()
         };
 
-        // Obliczanie całkowitej kwoty zamówienia
-        order.TotalAmount = order.OrderEntries.Sum(e => e.Quantity * _context.Paper.Find(e.ProductId).Price);
+        // Oblicz sumaryczną kwotę zamówienia
+        order.TotalAmount = order.OrderEntries.Sum(e => e.Price * e.Quantity);
 
-        // Dodanie zamówienia do kontekstu
-        _context.Orders.Add(order);
-        await _context.SaveChangesAsync();
+        var newOrder = _orderRepository.CreateOrder(order);
+        return new OrderDto().FromEntity(newOrder);
+    }
+    
 
-        return order;
+    public Order GetOrderById(int orderId)
+    {
+        var order = _orderRepository.GetOrderById(orderId);
+        return new Order().OrderEntries (order);
     }
 
-  
+    public List<OrderDto> GetOrdersByCustomerId(int customerId)
+    {
+        return _orderRepository.GetOrdersByCustomerId(customerId).ConvertAll(o => new OrderDto().FromEntity(o));
+    }
 }
+  
+
