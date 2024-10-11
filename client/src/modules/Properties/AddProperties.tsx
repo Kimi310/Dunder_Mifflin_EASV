@@ -3,7 +3,6 @@ import {Property} from "@assets/models/Property.ts";
 import {Api, PaperDto, PropertyDto} from "@Api.ts";
 import {AxiosResponse} from "axios";
 import {toast} from "react-hot-toast";
-import {Paper} from "@assets/models/Paper.ts";
 import {useAtom} from "jotai";
 import {PropertiesAtom} from "@atoms/PropertiesAtom.ts";
 

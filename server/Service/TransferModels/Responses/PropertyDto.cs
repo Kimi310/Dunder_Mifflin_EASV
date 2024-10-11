@@ -16,4 +16,13 @@ public class PropertyDto
             PropertyName =  property.PropertyName
         };
     }
+    
+    public Property ToProperty()
+    {
+        return new Property
+        {
+            PropertyName = this.PropertyName,
+            Id = this.Id
+        };
+    }
 }

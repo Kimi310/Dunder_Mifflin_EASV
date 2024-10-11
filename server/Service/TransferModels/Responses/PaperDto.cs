@@ -13,6 +13,8 @@ public class PaperDto
     public int Stock { get; set; }
 
     public double Price { get; set; }
+    
+    public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
 
     public PaperDto FromEntity(Paper paper)
     {
@@ -22,7 +24,8 @@ public class PaperDto
             Name = paper.Name,
             Discontinued = paper.Discontinued,
             Stock = paper.Stock,
-            Price = paper.Price
+            Price = paper.Price,
+            Properties = paper.Properties
         };
 
     }
