@@ -15,7 +15,7 @@ public partial class Order
 
     public double TotalAmount { get; set; }
 
-    public int? CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public virtual Customer? Customer { get; set; }
 

@@ -5,9 +5,7 @@ namespace Service.TransferModels.Requests;
 
 public class OrderDto
 {
-    public int? CustomerId { get; set; }
-
-    public virtual Customer? Customer { get; set; }
+    public int CustomerId { get; set; }
     
     public double TotalAmount { get; set; }
     

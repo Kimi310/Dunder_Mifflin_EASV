@@ -19,21 +19,14 @@ namespace API.Controllers;
         }
         
         [HttpPost]
-        public IActionResult CreateOrder([FromBody] OrderDto orderDto)
+        public ActionResult<OrderDto> CreateOrder([FromBody] OrderDto orderDto)
         {
-            try
-            {
                 var order = _orderService.CreateOrder(orderDto);
                 return Ok(order);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
         
         
-        
+        /*
         [HttpGet("{id}")]
         public IActionResult GetOrderById(int id)
         {
@@ -51,4 +44,5 @@ namespace API.Controllers;
             var orders = _orderService.GetOrdersByCustomerId(customerId);
             return Ok(orders);
         }
+        */
     }

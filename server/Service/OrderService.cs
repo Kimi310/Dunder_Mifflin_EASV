@@ -7,22 +7,11 @@ using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
 namespace Service;
 
-public class OrderService : IOrderService
+public class OrderService(IOrderRepository _orderRepository, ICustomerRepository _customerRepository, IPaperRepository _paperRepository) : IOrderService
 {
-    private readonly IOrderRepository _orderRepository;
-    private readonly ICustomerRepository _customerRepository;
-    private readonly IPaperRepository _paperRepository;
-
-    public OrderService(IOrderRepository orderRepository, ICustomerRepository customerRepository, IPaperRepository paperRepository)
+    public OrderDto CreateOrder(OrderDto orderDto)
     {
-        _orderRepository = orderRepository;
-        _customerRepository = customerRepository;
-        _paperRepository = paperRepository;
-    }
-
-    public Order CreateOrder(OrderDto orderDto)
-    {
-        var customer = _customerRepository.GetCustomerById(OrderDto.CustomerId);
+        var customer = _customerRepository.GetCustomerByID(orderDto.CustomerId);
         if (customer == null)
         {
             throw new Exception("Customer not found");
@@ -31,10 +20,10 @@ public class OrderService : IOrderService
         
         var order = new Order
         {
-            CustomerId = OrderDto.CustomerId,
-            OrderDate = DateTime.Now,
+            CustomerId = customer.Id,
+            OrderDate = DateTime.UtcNow,
             Status = "Pending",
-            OrderEntries = OrderDto.OrderEntries.Select(entryDto => 
+            OrderEntries = orderDto.OrderEntries.Select(entryDto => 
             {
                 var product = _paperRepository.GetPaperById(entryDto.ProductId.Value);
                 if (product == null)
@@ -45,29 +34,30 @@ public class OrderService : IOrderService
                 {
                     ProductId = entryDto.ProductId,
                     Quantity = entryDto.Quantity,
-                    Price = product.Price
+                    Product = product
                 };
             }).ToList()
         };
 
-        // Oblicz sumaryczną kwotę zamówienia
-        order.TotalAmount = order.OrderEntries.Sum(e => e.Price * e.Quantity);
+        order.TotalAmount = order.OrderEntries.Sum(e => e.Product.Price * e.Quantity);
 
         var newOrder = _orderRepository.CreateOrder(order);
         return new OrderDto().FromEntity(newOrder);
     }
     
-
+    /*
     public Order GetOrderById(int orderId)
     {
         var order = _orderRepository.GetOrderById(orderId);
         return new Order().OrderEntries (order);
     }
+    
 
     public List<OrderDto> GetOrdersByCustomerId(int customerId)
     {
         return _orderRepository.GetOrdersByCustomerId(customerId).ConvertAll(o => new OrderDto().FromEntity(o));
     }
+    */
 }
   
 
