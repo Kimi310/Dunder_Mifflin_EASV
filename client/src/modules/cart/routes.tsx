@@ -1,10 +1,11 @@
 import { RouteObject } from "react-router-dom";
 import { Navigation } from "@app/components/navigation";
-import { ShoppingCart } from "./components";
+import { ShoppingCart } from "./components/index";
+
 
 const ROUTES: RouteObject[] = [
     {
-        path: '/MyOrder',
+        path: '/cart',
         element: <Navigation />,
         children: [
             { index: true, element: <ShoppingCart /> },

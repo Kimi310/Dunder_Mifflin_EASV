@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Prodcuts, useGetProducts } from "../hooks/useGetProducts";
 import { Link } from "react-router-dom";
+const [cart, setCart] = useState<Prodcuts[]>([]);
 
 export const ProductsPage = () => {
     const [search, setSearch] = useState<string>("");
@@ -8,6 +9,11 @@ export const ProductsPage = () => {
     
 
     const data = response as Prodcuts[];
+
+    const handleAddEntry = (product: Prodcuts) => {
+        setCart([...cart, product]);
+        console.log("Product added to cart:", product);
+    };
 
     return (
         <div className="container mx-auto px-4">
@@ -32,6 +38,12 @@ export const ProductsPage = () => {
                                 <div className="text-lg font-semibold">${product.price}</div>
                             </div>
                             <Link to={`/paper/${product.id}`} className="btn btn-primary mt-2">View Item</Link>
+                            <button
+                                onClick={() => handleAddEntry(product)}
+                                className="btn btn-secondary mt-2"
+                            >
+                                Add to Cart
+                            </button>
                         </div>
                     </div>
                 ))}

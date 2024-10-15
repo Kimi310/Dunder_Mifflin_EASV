@@ -11,9 +11,14 @@ export const Navigation = () => {
                 <Link to="/">My Orders</Link>
                 <Link to="/add-paper">Add paper</Link>
 
-                {isLoggedIn ? <Link to="/user" className="font-bold">{user?.name}</Link> : <Link to="/login">Login</Link>}
+                {isLoggedIn ? <Link to="/user" className="font-bold">{user?.name}</Link> :
+                    <Link to="/login">Login</Link>}
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+                <Link to="/cart"><i className="fas fa-shopping-cart"></i></Link>
             </div>
-            <Outlet />
+            <Outlet/>
         </>
     )
 }

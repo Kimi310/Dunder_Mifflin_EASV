@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAtom } from 'jotai';
 import { orderAtom, orderEntriesAtom } from './state';
+
 export const ShoppingCart= () =>{
         const [customerId, setCustomerId] = useState('');
         const [orderEntries, setOrderEntries] = useState([{ productId: '', quantity: '' }]);
@@ -69,8 +70,7 @@ export const ShoppingCart= () =>{
                     </div>
                 ))}
 
-                <button type="button" onClick={handleAddEntry}>Add Product</button>
-                <button type="submit">Create Order</button>
+                <button type="button" >Pay now</button>
             </form>
         );
     }
