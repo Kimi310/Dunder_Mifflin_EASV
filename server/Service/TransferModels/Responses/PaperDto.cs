@@ -14,7 +14,7 @@ public class PaperDto
 
     public double Price { get; set; }
     
-    public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
+    public virtual ICollection<PropertyDto> Properties { get; set; } = new List<PropertyDto>();
 
     public PaperDto FromEntity(Paper paper)
     {
@@ -25,7 +25,7 @@ public class PaperDto
             Discontinued = paper.Discontinued,
             Stock = paper.Stock,
             Price = paper.Price,
-            Properties = paper.Properties
+            Properties = paper.Properties.Select(p => new PropertyDto().FromEntity(p)).ToList(),
         };
 
     }
