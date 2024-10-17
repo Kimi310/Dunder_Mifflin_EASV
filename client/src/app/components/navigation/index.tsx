@@ -1,6 +1,7 @@
 import { useAuth, useLogout } from "@hooks/authentication/Authentication"
 import { Link, Outlet } from "react-router-dom"
 
+
 export const Navigation = () => {
     const { user, isLoggedIn } = useAuth()
 

@@ -1,78 +1,61 @@
 import React, { useState } from 'react';
-import { useAtom } from 'jotai';
-import { orderAtom, orderEntriesAtom } from './state';
+import { Link } from 'react-router-dom';
 
-export const ShoppingCart= () =>{
-        const [customerId, setCustomerId] = useState('');
-        const [orderEntries, setOrderEntries] = useState([{ productId: '', quantity: '' }]);
+// Zakładam, że masz typy produktów
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+}
 
-        const handleAddEntry = () => {
-            setOrderEntries([...orderEntries, { productId: '', quantity: '' }]);
-        };
+export const ShoppingCart = () => {
+    const [cart, setCart] = useState<Product[]>([]);
 
-        const handleSubmit = async (e) => {
-            e.preventDefault();
+    // Funkcja dodająca produkt do koszyka
+    const addToCart = (product: Product) => {
+        const existingProduct = cart.find(item => item.id === product.id);
+        if (existingProduct) {
+            setCart(cart.map(item =>
+                item.id === product.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            ));
+        } else {
+            setCart([...cart, { ...product, quantity: 1 }]);
+        }
+    };
 
-            const orderData = {
-                customerId,
-                orderEntries
-            };
+    // Funkcja usuwająca produkt z koszyka
+    const removeFromCart = (productId: number) => {
+        setCart(cart.filter(item => item.id !== productId));
+    };
 
-            try {
-                const response = await fetch('/api/order', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData),
-                });
+    const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-                if (response.ok) {
-                    const result = await response.json();
-                    alert('Order created successfully');
-                } else {
-                    alert('Failed to create order');
-                }
-            } catch (error) {
-                console.error('Error creating order:', error);
-            }
-        };
-
-        return (
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Customer ID:</label>
-                    <input type="text" value={customerId} onChange={(e) => setCustomerId(e.target.value)} />
-                </div>
-
-                {orderEntries.map((entry, index) => (
-                    <div key={index}>
-                        <label>Product ID:</label>
-                        <input
-                            type="text"
-                            value={entry.productId}
-                            onChange={(e) => {
-                                const newEntries = [...orderEntries];
-                                newEntries[index].productId = e.target.value;
-                                setOrderEntries(newEntries);
-                            }}
-                        />
-                        <label>Quantity:</label>
-                        <input
-                            type="text"
-                            value={entry.quantity}
-                            onChange={(e) => {
-                                const newEntries = [...orderEntries];
-                                newEntries[index].quantity = e.target.value;
-                                setOrderEntries(newEntries);
-                            }}
-                        />
-                    </div>
-                ))}
-
-                <button type="button" >Pay now</button>
-            </form>
-        );
-    }
-
-    export default ShoppingCart;
+    return (
+        <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-semibold">Shopping Cart</h2>
+            <div className="my-6">
+                {cart.length === 0 ? (
+                    <div>Your cart is empty</div>
+                ) : (
+                    cart.map((item) => (
+                        <div key={item.id} className="flex justify-between items-center py-4">
+                            <div className="text-lg">{item.name} (x{item.quantity})</div>
+                            <div className="text-lg">${item.price * item.quantity}</div>
+                            <button
+                                onClick={() => removeFromCart(item.id)}
+                                className="btn btn-secondary"
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    ))
+                )}
+                <div className="text-xl font-bold mt-4">Total: ${totalAmount}</div>
+            </div>
+            <Link to="/" className="btn btn-primary">Continue Shopping</Link>
+        </div>
+    );
+};
