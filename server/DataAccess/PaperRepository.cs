@@ -20,7 +20,7 @@ public class PaperRepository(DunderContext context) : IPaperRepository
 
     public List<Paper> GetAllPapers()
     {
-        return context.Papers.ToList();
+        return context.Papers.Include(p => p.Properties).ToList();
     }
 
     public Paper GetPaperById(int id)

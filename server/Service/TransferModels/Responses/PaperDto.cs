@@ -14,7 +14,7 @@ public class PaperDto
 
     public double Price { get; set; }
     
-    public virtual ICollection<PropertyDto> Properties { get; set; } = new List<PropertyDto>();
+    public List<PropertyDto> Properties { get; set; } = new List<PropertyDto>();
 
     public PaperDto FromEntity(Paper paper)
     {

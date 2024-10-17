@@ -22,12 +22,6 @@ public class Program
             .Validate(appOptions => !string.IsNullOrEmpty(appOptions.DbConnectionString), 
                 "DbConnectionString must be provided.");
         
-        builder.Services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-                options.JsonSerializerOptions.WriteIndented = true;
-            });
         
         builder.Services.AddDbContext<DunderContext>((serviceProvider, options) =>
         {
