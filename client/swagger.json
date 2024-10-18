@@ -375,6 +375,61 @@
           }
         }
       }
+    },
+    "/Property/Create": {
+      "post": {
+        "tags": [
+          "Property"
+        ],
+        "operationId": "Property_CreateProperty",
+        "requestBody": {
+          "x-name": "data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePropertyDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Property/Get": {
+      "get": {
+        "tags": [
+          "Property"
+        ],
+        "operationId": "Property_GetAllProperties",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -444,8 +499,8 @@
           "id": {
             "type": "integer",
             "format": "int32",
-            "maximum": 2147483647,
-            "minimum": 1
+            "maximum": 2147483647.0,
+            "minimum": 1.0
           },
           "name": {
             "type": "string"
@@ -527,6 +582,25 @@
           "price": {
             "type": "number",
             "format": "double"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyDto"
+            }
+          }
+        }
+      },
+      "PropertyDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "propertyName": {
+            "type": "string"
           }
         }
       },
@@ -544,6 +618,21 @@
           "price": {
             "type": "number",
             "format": "double"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyDto"
+            }
+          }
+        }
+      },
+      "CreatePropertyDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "propertyName": {
+            "type": "string"
           }
         }
       }
