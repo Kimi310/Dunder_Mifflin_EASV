@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Prodcuts, useGetProducts } from "@modules/products/hooks/useGetProducts";
 import { Link } from 'react-router-dom';
 import { useCart } from "@modules/cart/components/cartItem"
-import {Api, OrderDto} from "@Api.ts";
+import {Api, OrderDto, OrderEntryDto} from "@Api.ts";
 import {localUser, useAuth} from "@hooks/authentication/Authentication.tsx";
 import {Customer} from "@assets/models/Customer.tsx";
 import {toast} from "react-hot-toast";
@@ -21,13 +21,18 @@ export const ShoppingCart = () => {
         if (localUser != null){
             //@ts-ignore
             const customer: Customer = JSON.parse(localUser) as Customer;
+            let orderEntriesDto = cart.map(c => {
+                var orderEntryDto : OrderEntryDto = {quantity: c.quantity, productId: c.productId};
+                return orderEntryDto;
+            })
             let order : OrderDto = {
                 customerId: customer.id,
-                orderEntries: {...cart},
+                orderEntries: orderEntriesDto,
                 totalAmount: totalAmount
             }
             new Api().order.orderCreateOrder(order).then(res => {
                 setAllOrders(prev => [...prev,res.data]);
+                toast.success("Order has been placed successfully");
             })
         }else {
             toast.error("You are not logged in");

@@ -24,25 +24,18 @@ namespace API.Controllers;
                 var order = _orderService.CreateOrder(orderDto);
                 return Ok(order);
         }
-        
-        
-        /*
-        [HttpGet("{id}")]
-        public IActionResult GetOrderById(int id)
-        {
-            var order = _orderService.GetOrderById(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(order);
-        }
-        [HttpGet("customer/{customerId}")]
-        public IActionResult GetOrdersByCustomerId(int customerId)
+        [HttpGet]
+        public ActionResult<List<OrderDto>> GetOrders()
         {
-            var orders = _orderService.GetOrdersByCustomerId(customerId);
+            var orders = _orderService.GetAllOrders();
             return Ok(orders);
         }
-        */
+
+        [HttpGet("{id}")]
+        public ActionResult<List<OrderDto>> GetOrdersByUser([FromRoute] int id)
+        {
+            var orders = _orderService.GetAllOrdersByCustomerId(id);
+            return Ok(orders);
+        }
     }

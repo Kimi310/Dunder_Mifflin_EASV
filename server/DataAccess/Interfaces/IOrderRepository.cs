@@ -5,10 +5,7 @@ namespace DataAccess.Interfaces;
 public interface IOrderRepository
 {
     Order CreateOrder(Order order);
-    Order GetOrderById(int orderId);
-    IEnumerable<Order> GetOrdersByCustomerId(int customerId);
-    void UpdateOrder(Order order);
-    void DeleteOrder(int orderId);
+    List<Order> GetOrdersByCustomerId(int customerId);
     
-
+    List<Order> GetAllOrders();
 }

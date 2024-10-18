@@ -8,5 +8,6 @@ namespace Service.Interfaces;
 public interface IOrderService
 {
     OrderDto CreateOrder(OrderDto orderDto);
-    //Order GetOrderById(int orderId);
+    public List<OrderDto> GetAllOrders();
+    public List<OrderDto> GetAllOrdersByCustomerId(int customerId);
 }

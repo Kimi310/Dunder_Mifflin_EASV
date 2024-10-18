@@ -15,14 +15,7 @@ public class OrderRepository (DunderContext context) : IOrderRepository
         return order;
     }
 
-    public Order GetOrderById(int orderId)
-    {
-        return context.Orders
-            .Include(o => o.OrderEntries)
-            .FirstOrDefault(o => o.Id == orderId);
-    }
-
-    public IEnumerable<Order> GetOrdersByCustomerId(int customerId)
+    public List<Order> GetOrdersByCustomerId(int customerId)
     {
         return context.Orders
             .Include(o => o.OrderEntries)
@@ -30,25 +23,8 @@ public class OrderRepository (DunderContext context) : IOrderRepository
             .ToList();
     }
 
-    public void UpdateOrder(Order order)
+    public List<Order> GetAllOrders()
     {
-        var existingOrder = context.Orders.Find(order.Id);
-        if (existingOrder == null)
-        {
-            throw new Exception("Order not found");
-        }
-
-        existingOrder.Status = order.Status ?? existingOrder.Status;
-        existingOrder.TotalAmount = order.TotalAmount > 0 ? order.TotalAmount : existingOrder.TotalAmount;
-        
-        context.SaveChanges();
-    }
-
-    public void DeleteOrder(int orderId)
-    {
-        var order = context.Orders.Find(orderId);
-        if (order == null) return;
-        context.Orders.Remove(order);
-        context.SaveChanges();
+        return context.Orders.Include(o => o.OrderEntries).ToList();
     }
 }

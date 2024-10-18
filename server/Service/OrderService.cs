@@ -44,20 +44,20 @@ public class OrderService(IOrderRepository _orderRepository, ICustomerRepository
         var newOrder = _orderRepository.CreateOrder(order);
         return new OrderDto().FromEntity(newOrder);
     }
-    
-    /*
-    public Order GetOrderById(int orderId)
-    {
-        var order = _orderRepository.GetOrderById(orderId);
-        return new Order().OrderEntries (order);
-    }
-    
 
-    public List<OrderDto> GetOrdersByCustomerId(int customerId)
+    public List<OrderDto> GetAllOrders()
     {
-        return _orderRepository.GetOrdersByCustomerId(customerId).ConvertAll(o => new OrderDto().FromEntity(o));
+        var orders = _orderRepository.GetAllOrders();
+        var orderDtos = orders.Select(order => new OrderDto().FromEntity(order)).ToList();
+        return orderDtos;
     }
-    */
+
+    public List<OrderDto> GetAllOrdersByCustomerId(int customerId)
+    {
+        var orders = _orderRepository.GetOrdersByCustomerId(customerId);
+        var orderDtos = orders.Select(order => new OrderDto().FromEntity(order)).ToList();
+        return orderDtos;
+    }
 }
   
 

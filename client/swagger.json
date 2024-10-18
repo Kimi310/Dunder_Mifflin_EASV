@@ -137,6 +137,62 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order_GetOrders",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order_GetOrdersByUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDto"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/Paper/Create": {
