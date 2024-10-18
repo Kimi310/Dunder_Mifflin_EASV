@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
 import { Prodcuts, useGetProducts } from "../hooks/useGetProducts";
 import { Link } from "react-router-dom";
-export const ProductsPage = ({ addToCart }) => {
+import { useCart } from "@modules/cart/components/cartItem"
+export const ProductsPage = () => {
     const [search, setSearch] = useState<string>("");
     const { data: response, isLoading } = useGetProducts({search});
-
+    const { addToCart } = useCart();
     const data = response as Prodcuts[];
     
-    const [cart, setCart] = useState<Prodcuts[]>([])
-    
-
-    const addToCart = (product: Prodcuts) => {
-        setCart([...cart, product]);
-        console.log("Product added to cart:", product);
-    };
 
         return (
             <div className="container mx-auto px-4">
