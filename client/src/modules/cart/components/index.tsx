@@ -31,7 +31,6 @@ export const ShoppingCart = () => {
                 totalAmount: totalAmount
             }
             new Api().order.orderCreateOrder(order).then(res => {
-                setAllOrders(prev => [...prev,res.data]);
                 toast.success("Order has been placed successfully");
             })
         }else {
