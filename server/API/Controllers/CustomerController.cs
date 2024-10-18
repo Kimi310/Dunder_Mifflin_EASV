@@ -8,7 +8,8 @@ namespace API.Controllers;
 [ApiController]
 [Route("[controller]")]
 
-public class CustomerController(ICustomerService customerService): ControllerBase
+public class 
+    CustomerController(ICustomerService customerService): ControllerBase
 {
     [HttpPost]
     [Route("signup")]

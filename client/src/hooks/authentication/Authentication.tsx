@@ -2,7 +2,7 @@ import { Api, GetCustomerDto, CreateCustomerDto, UpdateCustomerDto, CustomerDto 
 import { useEffect, useState } from "react";
 import { Signal } from "@preact/signals-react";
 
-const localUser = window.localStorage.getItem("user")
+export const localUser = window.localStorage.getItem("user")
 const userSignal = new Signal<CustomerDto | undefined>(localUser ? JSON.parse(localUser) : undefined)
 const loggedIn = new Signal<boolean>(!!localUser);
 

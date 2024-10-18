@@ -51,6 +51,24 @@ export interface UpdateCustomerDto {
   email?: string;
 }
 
+export interface OrderDto {
+  /** @format int32 */
+  id?: number;
+  /** @format int32 */
+  customerId?: number;
+  /** @format double */
+  totalAmount?: number;
+  orderEntries?: OrderEntryDto[];
+  status?: string | null;
+}
+
+export interface OrderEntryDto {
+  /** @format int32 */
+  quantity?: number;
+  /** @format int32 */
+  productId?: number | null;
+}
+
 export interface PaperDto {
   /** @format int32 */
   id?: number;
@@ -268,6 +286,56 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<CustomerDto, any>({
         path: `/Customer/update`,
         method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  order = {
+    /**
+     * No description
+     *
+     * @tags Order
+     * @name OrderCreateOrder
+     * @request POST:/Order
+     */
+    orderCreateOrder: (data: OrderDto, params: RequestParams = {}) =>
+      this.request<OrderDto, any>({
+        path: `/Order`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Order
+     * @name OrderGetOrders
+     * @request GET:/Order
+     */
+    orderGetOrders: (params: RequestParams = {}) =>
+      this.request<OrderDto[], any>({
+        path: `/Order`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Order
+     * @name OrderChangeOrderStatus
+     * @request PUT:/Order
+     */
+    orderChangeOrderStatus: (data: OrderDto, params: RequestParams = {}) =>
+      this.request<OrderDto, any>({
+        path: `/Order`,
+        method: "PUT",
         body: data,
         type: ContentType.Json,
         format: "json",

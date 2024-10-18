@@ -50,4 +50,9 @@ public class CustomerRepository(DunderContext context) : ICustomerRepository
         context.SaveChanges();
         return existingCustomer;
     }
+
+    public Customer GetCustomerByID(int customerId)
+    {
+        return context.Customers.FirstOrDefault(c => c.Id == customerId);
+    }
 }
