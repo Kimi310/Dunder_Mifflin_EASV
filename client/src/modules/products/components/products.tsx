@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Prodcuts, useGetProducts } from "../hooks/useGetProducts";
 import { Link } from "react-router-dom";
-export const ProductsPage = () => {
+export const ProductsPage = ({ addToCart }) => {
     const [search, setSearch] = useState<string>("");
     const { data: response, isLoading } = useGetProducts({search});
 
     const data = response as Prodcuts[];
+    
     const [cart, setCart] = useState<Prodcuts[]>([])
     
 
-    const handleAddToCart = (product: Prodcuts) => {
+    const addToCart = (product: Prodcuts) => {
         setCart([...cart, product]);
         console.log("Product added to cart:", product);
     };
@@ -39,10 +40,7 @@ export const ProductsPage = () => {
                                     <div className="text-lg font-semibold">${product.price}</div>
                                 </div>
                                 <Link to={`/paper/${product.id}`} className="btn btn-primary mt-2">View Item</Link>
-                                <button
-                                    onClick={() => handleAddToCart(product)}
-                                    className="btn btn-secondary mt-2"
-                                >
+                                <button onClick={() => addToCart(product)} className="btn btn-secondary mt-2">
                                     Add to Cart
                                 </button>
                             </div>

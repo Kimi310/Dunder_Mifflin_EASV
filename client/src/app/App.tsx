@@ -20,3 +20,40 @@ const App = () => {
 }
 
 export default App;
+
+/* import React, { useState } from 'react';
+import { ProductsPage } from './ProductsPage';
+import { ShoppingCart } from './ShoppingCart';
+
+const App = () => {
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (product) => {
+        setCart(prevCart => {
+            const existingProduct = prevCart.find(item => item.id === product.id);
+            if (existingProduct) {
+                return prevCart.map(item => 
+                    item.id === product.id 
+                    ? { ...item, quantity: item.quantity + 1 } 
+                    : item
+                );
+            } else {
+                return [...prevCart, { ...product, quantity: 1 }];
+            }
+        });
+    };
+
+    const removeFromCart = (productId) => {
+        setCart(prevCart => prevCart.filter(item => item.id !== productId));
+    };
+
+    return (
+        <div>
+            <ProductsPage addToCart={addToCart} />
+            <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
+        </div>
+    );
+};
+
+export default App;
+ */
