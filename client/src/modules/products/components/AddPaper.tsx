@@ -33,11 +33,11 @@ export const AddPaper = ()=>{
                     stock: r.data.stock,
                     // @ts-ignore
                     name: r.data.name,
-                    id: r.data.id
+                    id: r.data.id,
+                    properties : r.data.properties
                 };
 
                 let updatedPapers = [...papers, newPaperData];
-                console.log(paperProperties);
                 setPapers(updatedPapers);
                 setPaper(newPaperData);
             });
@@ -47,17 +47,22 @@ export const AddPaper = ()=>{
     }
 
     function handlePaperProperties(property: Property) {
-        if (paperProperties.includes(property)) {
-            // Remove the property if it's already in the list
-            setPaperProperties(prevProperties =>
-                prevProperties.filter(p => p !== property)
-            );
-        } else {
-            // Add the property if it's not in the list
-            setPaperProperties(prevProperties =>
-                [...prevProperties, property]
-            );
-        }
+        setPaperProperties(prevProperties => {
+            let newProperties;
+
+            if (prevProperties.includes(property)) {
+                // Remove the property if it's already in the list
+                newProperties = prevProperties.filter(p => p !== property);
+            } else {
+                // Add the property if it's not in the list
+                newProperties = [...prevProperties, property];
+            }
+
+            // Set the paper properties to the updated list
+            paper.properties = [...newProperties];
+
+            return newProperties;
+        });
     }
 
 

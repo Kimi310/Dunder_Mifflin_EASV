@@ -25,7 +25,7 @@ public class PaperRepository(DunderContext context) : IPaperRepository
 
     public Paper GetPaperById(int id)
     {
-        var paper = context.Papers.FirstOrDefault(p => p.Id == id);
+        var paper = context.Papers.Include(p => p.Properties).ToList().FirstOrDefault(p => p.Id == id);
         if (paper == null)
         {
             throw new NullReferenceException();

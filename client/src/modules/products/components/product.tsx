@@ -19,7 +19,8 @@ export const ProductPage = () => {
             stock: r.data.stock,
             // @ts-ignore
             name: r.data.name,
-            id: r.data.id
+            id: r.data.id,
+                properties: r.data.properties
             };
             setPaper(newPaper);
         });
@@ -42,7 +43,8 @@ export const ProductPage = () => {
                     stock: r.data.stock,
                     // @ts-ignore
                     name: r.data.name,
-                    id: r.data.id
+                    id: r.data.id,
+                    properties : r.data.properties
                 };
                 setPaper({...newPaperData});
                 newPaperData.discontinued ? toast.success("Paper has been discontinued successfully!") : toast.success("Paper has been made available successfully!");
@@ -60,7 +62,8 @@ export const ProductPage = () => {
                 stock: r.data.stock,
                 // @ts-ignore
                 name: r.data.name,
-                id: r.data.id
+                id: r.data.id,
+                properties: r.data.properties
             };
             setPaper({...newPaperData});
             toast.success("Paper has been restocked successfully!");
@@ -74,8 +77,24 @@ export const ProductPage = () => {
                     <label className="text-6xl">Paper name: {paper?.name}</label>
                     <div className="flex flex-row justify-between items-center w-96 mt-10">
                         <label className="text-2xl">Status: {paper?.discontinued ? 'Discontinued' : 'Available'}</label>
-                        <button className="btn" onClick={()=>updateDiscontinued()}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
+                        <button className="btn"
+                                onClick={() => updateDiscontinued()}>{paper?.discontinued ? 'Make available' : 'Discontinue'}</button>
                     </div>
+                    <div className="flex flex-row items-center w-96 mt-10">
+                        <label className="text-2xl">Properties</label>
+                    </div>
+
+                    {paper.properties && paper.properties.length > 0 ? (
+                        paper.properties.map(p => (
+                            <div key={p.id} className="flex flex-row items-center w-96 mt-10">
+                                <label className="text-2xl">{p.propertyName}</label>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="flex flex-row items-center w-96 mt-10">
+                            <label className="text-2xl">There are no properties</label>
+                        </div>
+                    )}
                     <div className="flex flex-row items-center w-96 mt-10">
                         <label className="text-2xl">Stock: {paper.stock}</label>
                     </div>
@@ -86,7 +105,7 @@ export const ProductPage = () => {
                         }}/>
                     </div>
                     <div className="flex flex-row justify-end items-center w-96 mt-5">
-                        <button className="btn" onClick={()=>updateRestock()}>Restock</button>
+                        <button className="btn" onClick={() => updateRestock()}>Restock</button>
                     </div>
                 </div>
             </div>
