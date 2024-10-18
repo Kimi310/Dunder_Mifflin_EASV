@@ -1,5 +1,5 @@
 ﻿import { useAtom } from 'jotai';
-import {AllOrdersAtom, initAllOrdersAtom} from '@atoms/AllOrdersAtom.ts';
+import {AllOrdersAtom} from '@atoms/AllOrdersAtom.ts';
 import { useEffect, useState } from 'react';
 import { OrderDto } from '@Api.ts';
 import { localUser } from '@hooks/authentication/Authentication.tsx';
@@ -36,8 +36,9 @@ export const MyOrders = () => {
             <h1 className="font-bold text-4xl">Your Orders</h1>
             {filteredOrders.map(o => (
                 <div key={o.customerId} className="flex flex-row mt-5">
+                    <div className="mr-5">Order id: {o.id}</div>
                     <div className="mr-5">Customer ID: {o.customerId}</div>
-                    <div>Total amount: {o.totalAmount}</div>
+                    <div className="mr-5">Total amount: {o.totalAmount}</div>
                     <div>Status: {o.status}</div>
                 </div>
             ))}
