@@ -1,5 +1,6 @@
 ﻿using DataAccess.Interfaces;
 using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
 
@@ -7,6 +8,11 @@ public class PaperRepository(DunderContext context) : IPaperRepository
 {
     public Paper CreatePaper(Paper paper)
     {
+        foreach (var property in paper.Properties)
+        {
+            context.Entry(property).State = EntityState.Unchanged;
+        }
+
         context.Papers.Add(paper);
         context.SaveChanges();
         return paper;
@@ -14,12 +20,12 @@ public class PaperRepository(DunderContext context) : IPaperRepository
 
     public List<Paper> GetAllPapers()
     {
-        return context.Papers.ToList();
+        return context.Papers.Include(p => p.Properties).ToList();
     }
 
     public Paper GetPaperById(int id)
     {
-        var paper = context.Papers.FirstOrDefault(p => p.Id == id);
+        var paper = context.Papers.Include(p => p.Properties).ToList().FirstOrDefault(p => p.Id == id);
         if (paper == null)
         {
             throw new NullReferenceException();

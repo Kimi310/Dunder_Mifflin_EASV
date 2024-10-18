@@ -11,14 +11,17 @@ public class CreatePaperDto
     
     public double Price { get; set; }
     
-
+    public List<PropertyDto> Properties { get; set; } = new List<PropertyDto>();
+    
+    
     public Paper toPaper()
     {
         return new Paper()
         {
             Name = Name,
             Stock = Stock,
-            Price = Price
+            Price = Price,
+            Properties = this.Properties.ConvertAll(p => p.ToProperty())
         };
     }
 }

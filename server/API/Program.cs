@@ -22,6 +22,7 @@ public class Program
             .Validate(appOptions => !string.IsNullOrEmpty(appOptions.DbConnectionString), 
                 "DbConnectionString must be provided.");
         
+        
         builder.Services.AddDbContext<DunderContext>((serviceProvider, options) =>
         {
             var appOptions = serviceProvider.GetRequiredService<IOptions<AppOptions>>().Value;
@@ -33,6 +34,8 @@ public class Program
         builder.Services.AddScoped<IPaperRepository, PaperRepository>();
         builder.Services.AddScoped<IPaperService, PaperService>();
         builder.Services.AddScoped<ICustomerService, CustomerService>();
+        builder.Services.AddScoped<IPropertyService, PropertyService>();
+        builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();
 

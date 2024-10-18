@@ -1,3 +1,5 @@
+import {PropertyDto} from "@Api.ts";
+
 export interface Paper {
     /** @format int32 */
     id?: number;
@@ -7,4 +9,5 @@ export interface Paper {
     stock: number;
     /** @format double */
     price: number;
+    properties? : PropertyDto[];
 }
