@@ -107,6 +107,38 @@
         }
       }
     },
+    "/Order": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order_CreateOrder",
+        "requestBody": {
+          "x-name": "orderDto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Paper/Create": {
       "post": {
         "tags": [
@@ -361,8 +393,8 @@
           "id": {
             "type": "integer",
             "format": "int32",
-            "maximum": 2147483647,
-            "minimum": 1
+            "maximum": 2147483647.0,
+            "minimum": 1.0
           },
           "name": {
             "type": "string"
@@ -377,6 +409,41 @@
           "email": {
             "type": "string",
             "format": "email"
+          }
+        }
+      },
+      "OrderDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "orderEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderEntryDto"
+            }
+          }
+        }
+      },
+      "OrderEntryDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         }
       },
