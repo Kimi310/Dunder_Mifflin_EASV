@@ -13,7 +13,7 @@ export const Navigation = () => {
                 <Link to="/orders">All Orders</Link>
                 <Link to="/myorders"> MyOrders</Link>
                 <Link to="/add-paper">Add paper</Link>
-
+                <Link to="/properties">Properties</Link>
                 {isLoggedIn ? <Link to="/user" className="font-bold">{user?.name}</Link> :
                     <Link to="/login">Login</Link>}
 

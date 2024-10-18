@@ -32,6 +32,8 @@ export const ShoppingCart = () => {
                 status: "pending"
             }
             new Api().order.orderCreateOrder(order).then(res => {
+                var newOrder = [...allOrders,res.data];
+                setAllOrders(newOrder);
                 toast.success("Order has been placed successfully");
             })
         }else {

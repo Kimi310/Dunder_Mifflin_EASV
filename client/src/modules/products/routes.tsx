@@ -17,7 +17,7 @@ const ROUTES: RouteObject[] = [
 			{ path: "/add-paper", element: <AddPaper /> },
 			{ path: "/paper/:id", element: <ProductPage /> },
 			{ path: "/orders", element: <Orders/>},
-			{path: "/myorders", element: <MyOrders/>}
+			{path: "/myorders", element: <MyOrders/>},
 			{ path: "/properties", element: <Properties/>},
 			{ path: "/properties/add-property", element: <AddProperties/>}
 		]
