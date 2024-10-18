@@ -60,6 +60,13 @@ export interface PaperDto {
   stock?: number;
   /** @format double */
   price?: number;
+  properties?: PropertyDto[];
+}
+
+export interface PropertyDto {
+  /** @format int32 */
+  id?: number;
+  propertyName?: string;
 }
 
 export interface CreatePaperDto {
@@ -68,12 +75,7 @@ export interface CreatePaperDto {
   stock?: number;
   /** @format double */
   price?: number;
-}
-
-export interface PropertyDto {
-  /** @format int32 */
-  id?: number;
-  propertyName?: string;
+  properties?: PropertyDto[];
 }
 
 export interface CreatePropertyDto {
