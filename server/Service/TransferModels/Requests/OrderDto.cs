@@ -5,6 +5,7 @@ namespace Service.TransferModels.Requests;
 
 public class OrderDto
 {
+    public int Id { get; set; }
     public int CustomerId { get; set; }
     
     public double TotalAmount { get; set; }
@@ -17,6 +18,7 @@ public class OrderDto
     {
         return new OrderDto
         {
+            Id = order.Id,
             CustomerId = order.CustomerId,
             TotalAmount = order.TotalAmount,
             Status = order.Status,
@@ -26,6 +28,17 @@ public class OrderDto
                 Quantity = e.Quantity
             }).ToList()
             
+        };
+    }
+
+    public Order toOrder()
+    {
+        return new Order()
+        {
+            Id = Id,
+            Status = Status,
+            TotalAmount = TotalAmount,
+            CustomerId = CustomerId,
         };
     }
     }

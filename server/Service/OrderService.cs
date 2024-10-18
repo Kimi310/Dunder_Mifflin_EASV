@@ -58,6 +58,11 @@ public class OrderService(IOrderRepository _orderRepository, ICustomerRepository
         var orderDtos = orders.Select(order => new OrderDto().FromEntity(order)).ToList();
         return orderDtos;
     }
+
+    public OrderDto ChangeOrderStatus(OrderDto orderDto)
+    {
+        return new OrderDto().FromEntity(_orderRepository.ChangeOrderStatus(orderDto.toOrder()));
+    }
 }
   
 

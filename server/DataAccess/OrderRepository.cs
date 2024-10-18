@@ -27,4 +27,17 @@ public class OrderRepository (DunderContext context) : IOrderRepository
     {
         return context.Orders.Include(o => o.OrderEntries).ToList();
     }
+
+    public Order ChangeOrderStatus(Order order)
+    {
+        var existingOrder = context.Orders.Include(o => o.OrderEntries).FirstOrDefault(p => p.Id == order.Id);
+    
+        if (existingOrder != null)
+        {
+            existingOrder.Status = order.Status;
+            context.SaveChanges();
+            return existingOrder;
+        }
+        throw new NullReferenceException();
+    }
 }

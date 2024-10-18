@@ -1,5 +1,5 @@
 ﻿import { useAtom } from 'jotai';
-import { AllOrdersAtom } from '@atoms/AllOrdersAtom.ts';
+import {AllOrdersAtom, initAllOrdersAtom} from '@atoms/AllOrdersAtom.ts';
 import { useEffect, useState } from 'react';
 import { OrderDto } from '@Api.ts';
 import { localUser } from '@hooks/authentication/Authentication.tsx';
@@ -10,6 +10,7 @@ export const MyOrders = () => {
     const [filteredOrders, setFilteredOrders] = useState<OrderDto[]>([]);  // State to store filtered orders
 
     useEffect(() => {
+
         if (localUser != null) {
             try {
                 // Parse localUser into Customer

@@ -1,17 +1,16 @@
 ﻿import { atom } from 'jotai';
 import { Api, OrderDto } from '@Api.ts';
 import {useAtom} from "jotai/index";
+import {useEffect} from "react";
 
 export const AllOrdersAtom = atom<OrderDto[]>([]);
 
-
-export async function initAllOrdersAtom() {
-    const [orders,setOrders] = useAtom(AllOrdersAtom);
-    try {
-        const response = await new Api().order.orderGetOrders();
-        setOrders(response.data);
-    } catch (error) {
-        console.error('Error fetching orders:', error);
-        return [];  // Return an empty array if there's an error
-    }
+export function initOrdersAtom(){
+    const [orders, setOrders] = useAtom<OrderDto[]>(AllOrdersAtom);
+    useEffect(() => {
+        new Api().order.orderGetOrders().then(r => {
+            // @ts-ignore
+            setOrders(r.data);
+        })
+    }, []);
 }

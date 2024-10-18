@@ -53,6 +53,8 @@ export interface UpdateCustomerDto {
 
 export interface OrderDto {
   /** @format int32 */
+  id?: number;
+  /** @format int32 */
   customerId?: number;
   /** @format double */
   totalAmount?: number;
@@ -315,13 +317,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Order
-     * @name OrderGetOrdersByUser
-     * @request GET:/Order/{id}
+     * @name OrderChangeOrderStatus
+     * @request PUT:/Order
      */
-    orderGetOrdersByUser: (id: number, params: RequestParams = {}) =>
-      this.request<OrderDto[], any>({
-        path: `/Order/${id}`,
-        method: "GET",
+    orderChangeOrderStatus: (data: OrderDto, params: RequestParams = {}) =>
+      this.request<OrderDto, any>({
+        path: `/Order`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

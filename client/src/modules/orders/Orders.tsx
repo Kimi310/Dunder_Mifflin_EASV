@@ -1,5 +1,6 @@
 ﻿import {useAtom} from "jotai/index";
-import {AllOrdersAtom} from "@atoms/AllOrdersAtom.ts";
+import {AllOrdersAtom, initAllOrdersAtom} from "@atoms/AllOrdersAtom.ts";
+import {useEffect} from "react";
 
 export const Orders = ()=>{
     const [orders,setOrders] = useAtom(AllOrdersAtom);

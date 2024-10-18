@@ -10,4 +10,5 @@ public interface IOrderService
     OrderDto CreateOrder(OrderDto orderDto);
     public List<OrderDto> GetAllOrders();
     public List<OrderDto> GetAllOrdersByCustomerId(int customerId);
+    public OrderDto ChangeOrderStatus(OrderDto orderDto);
 }

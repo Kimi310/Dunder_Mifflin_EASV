@@ -32,10 +32,11 @@ namespace API.Controllers;
             return Ok(orders);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<List<OrderDto>> GetOrdersByUser([FromRoute] int id)
+        [HttpPut]
+        public ActionResult<OrderDto> ChangeOrderStatus([FromBody] OrderDto orderDto)
         {
-            var orders = _orderService.GetAllOrdersByCustomerId(id);
-            return Ok(orders);
+            var order = _orderService.ChangeOrderStatus(orderDto);
+            return Ok(order);
         }
+        
     }

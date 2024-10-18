@@ -8,4 +8,6 @@ public interface IOrderRepository
     List<Order> GetOrdersByCustomerId(int customerId);
     
     List<Order> GetAllOrders();
+
+    public Order ChangeOrderStatus(Order order);
 }
