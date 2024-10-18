@@ -10,6 +10,8 @@ public class OrderDto
     public double TotalAmount { get; set; }
     
     public List<OrderEntryDto> OrderEntries { get; set; }
+    
+    public string? Status { get; set; }
 
     public OrderDto FromEntity(Order order)
     {
@@ -17,12 +19,13 @@ public class OrderDto
         {
             CustomerId = order.CustomerId,
             TotalAmount = order.TotalAmount,
+            Status = order.Status,
             OrderEntries = order.OrderEntries.Select(e => new OrderEntryDto
             {
                 ProductId = e.ProductId,
                 Quantity = e.Quantity
             }).ToList()
-
+            
         };
     }
     }

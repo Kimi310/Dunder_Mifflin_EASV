@@ -37,6 +37,7 @@ export const MyOrders = () => {
                 <div key={o.customerId} className="flex flex-row mt-5">
                     <div className="mr-5">Customer ID: {o.customerId}</div>
                     <div>Total amount: {o.totalAmount}</div>
+                    <div>Status: {o.status}</div>
                 </div>
             ))}
         </div>

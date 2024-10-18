@@ -57,6 +57,7 @@ export interface OrderDto {
   /** @format double */
   totalAmount?: number;
   orderEntries?: OrderEntryDto[];
+  status?: string | null;
 }
 
 export interface OrderEntryDto {

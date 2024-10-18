@@ -28,7 +28,8 @@ export const ShoppingCart = () => {
             let order : OrderDto = {
                 customerId: customer.id,
                 orderEntries: orderEntriesDto,
-                totalAmount: totalAmount
+                totalAmount: totalAmount,
+                status: "pending"
             }
             new Api().order.orderCreateOrder(order).then(res => {
                 toast.success("Order has been placed successfully");

@@ -485,6 +485,10 @@
             "items": {
               "$ref": "#/components/schemas/OrderEntryDto"
             }
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
